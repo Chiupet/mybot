@@ -5,10 +5,10 @@ require "json"
 
 #----------ついった様　権限----------
 @client = Twitter::REST::Client.new do |config|
-  config.consumer_key        = ENV['cons_key']
-  config.consumer_secret     = ENV['cons_sec']
-  config.access_token        = ENV['acce_key']
-  config.access_token_secret = ENV['acce_sec']
+  config.consumer_key        = ENV['CONS_KEY']
+  config.consumer_secret     = ENV['CONS_SEC']
+  config.access_token        = ENV['ACCE_KEY']
+  config.access_token_secret = ENV['ACCE_SEC']
 end
 
 #----------お天気ゾーン--------------------
