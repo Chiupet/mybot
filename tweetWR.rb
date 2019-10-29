@@ -4,11 +4,11 @@ require "uri"
 require "json"
 
 #----------ついった様　権限----------
-client = Twitter::REST::Client.new do |config|
-  config.consumer_key        = ENV['CONS_KEY']
-  config.consumer_secret     = ENV['CONS_SEC']
-  config.access_token        = ENV['ACCE_KEY']
-  config.access_token_secret = ENV['ACCE_SEC']
+@client = Twitter::REST::Client.new do |config|
+  config.consumer_key        = ENV['cons_key']
+  config.consumer_secret     = ENV['cons_sec']
+  config.access_token        = ENV['acce_key']
+  config.access_token_secret = ENV['acce_sec']
 end
 
 #----------お天気ゾーン--------------------
@@ -20,6 +20,7 @@ class Hokkaido
     self.id = id
   end
 end
+
 
 @area01=Hokkaido.new(name:"稚内", id:"011000")
 @area02=Hokkaido.new(name:"旭川", id:"012010")
@@ -38,19 +39,18 @@ end
 @area15=Hokkaido.new(name:"函館", id:"017010")
 @area16=Hokkaido.new(name:"江差", id:"017020")
 
+
 @areas = [@area01,@area02,@area03,@area04,@area05,@area06,@area07,@area08,
         @area09,@area10,@area11,@area12,@area13,@area14,@area15,@area16,]
 @city_name = ""
 @city_id = ""
 @url1 = "http://weather.livedoor.com/forecast/webservice/json/v1?city="
 
-
-
-
   @username = "wrjpbot"
   @mention_1stid = ""
   @mention_2ndid = ""
   @loop_cash = false
+
 loop do #//////////////////////////////////////////////////////////////////////
   @cnt = 0
   @replied = false
@@ -70,14 +70,6 @@ loop do #//////////////////////////////////////////////////////////////////////
             @replied = true
           end
         end
-
-if @replied == false
-  puts "-----------------------------------"
-  puts "【#{tweet.user.name}】 #{tweet.user.screen_name}"
-  puts "#{tweet.text}"
-  puts "-----------------------------------"
-end
-
 
         if @replied == false && tweet.text =~ /天気/ #************************
           rep_message = tweet.text
@@ -124,7 +116,7 @@ end
           ft1 = "#{pub_year}年#{pub_month}月#{pub_day}日 #{pub_hour}時#{pub_minute}分 発表現在"
           message = message + ft1
 
-          @client.update(message) #相手に返信
+          @client.update(message,{:in_reply_to_status_id => tweet.id}) #相手に返信
           @client.favorite(tweet.id) #相手にふぁぼ
         end #******************************************************************
         @replied = false
