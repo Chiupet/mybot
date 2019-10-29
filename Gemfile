@@ -1,5 +1,3 @@
 source "https://rubygems.org"
 gem "twitter"
-gem "net/http"
-gem "uri"
 gem "json"
