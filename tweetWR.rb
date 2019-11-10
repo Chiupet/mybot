@@ -1,5 +1,7 @@
 require "twitter"
 require "./winfo"
+require "dotenv"
+Dotenv.load
 
 #----------ついった様　権限----------
 @client = Twitter::REST::Client.new do |config|
